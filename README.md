@@ -83,7 +83,7 @@ Key finding: FunASR's timestamp drift (~5s per 10 min) made precise audio editin
 
 ## Related Project
 
-**[PodTrans](https://github.com/YourUsername/podtrans)** — Podcast ASR transcription tool using FunASR.
+**[PodTrans](https://github.com/yanhao2046/podtrans)** — Podcast ASR transcription tool using FunASR.
 
 PodTrans and FillerDetect were originally designed as a two-stage pipeline. During development, FunASR's timestamp drift required FillerDetect to build its own Qwen3-based ASR. Both projects now work independently:
 
