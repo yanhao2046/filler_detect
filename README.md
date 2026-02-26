@@ -1,3 +1,9 @@
+<div align="center">
+
+English | [中文](README_zh.md)
+
+</div>
+
 # FillerDetect
 
 Podcast filler word detection and rough-cut tool. Automatically identifies filler words (呃, 嗯, 啊, etc.) in Chinese podcasts and generates edit lists for removal.
