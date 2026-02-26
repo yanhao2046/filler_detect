@@ -1,0 +1,94 @@
+{
+  "version": "1.0",
+  "patterns": [
+    {
+      "id": "e_single",
+      "pattern": "呃",
+      "type": "filler_single",
+      "match_mode": "exact",
+      "position": "any",
+      "base_confidence": 0.95,
+      "description": "单字填充，安全删除"
+    },
+    {
+      "id": "en_single",
+      "pattern": "嗯",
+      "type": "filler_single",
+      "match_mode": "exact",
+      "position": "any",
+      "base_confidence": 0.95,
+      "description": "单字填充"
+    },
+    {
+      "id": "a_single",
+      "pattern": "啊",
+      "type": "filler_single",
+      "match_mode": "exact",
+      "position": "any",
+      "base_confidence": 0.85,
+      "description": "单字填充，句尾需保留"
+    },
+    {
+      "id": "e_variant",
+      "pattern": "哦",
+      "type": "filler_single",
+      "match_mode": "exact",
+      "position": "any",
+      "base_confidence": 0.80,
+      "description": "呃的变体"
+    },
+    {
+      "id": "then_connector",
+      "pattern": "然后",
+      "type": "connector",
+      "match_mode": "exact",
+      "position": "sentence_start",
+      "base_confidence": 0.80,
+      "description": "句首连接词"
+    },
+    {
+      "id": "just_connector",
+      "pattern": "就是",
+      "type": "connector",
+      "match_mode": "exact",
+      "position": "sentence_start",
+      "base_confidence": 0.75,
+      "description": "句首连接词"
+    },
+    {
+      "id": "that_connector",
+      "pattern": "那个",
+      "type": "connector",
+      "match_mode": "exact",
+      "position": "sentence_start",
+      "base_confidence": 0.70,
+      "description": "句首指示词作填充用"
+    },
+    {
+      "id": "so_connector",
+      "pattern": "所以",
+      "type": "connector",
+      "match_mode": "exact",
+      "position": "sentence_start",
+      "base_confidence": 0.65,
+      "description": "句首连接词，低置信度"
+    }
+  ],
+  "context_rules": {
+    "sentence_start_threshold": 0.5,
+    "min_filler_duration": 0.1,
+    "merge_consecutive_same": true,
+    "max_merge_gap": 0.3,
+    "bulk_delete_min_count": 3,
+    "bulk_delete_min_confidence": 0.8
+  },
+  "scoring": {
+    "position_bonus": {
+      "sentence_start": 0.1,
+      "sentence_middle": 0.0,
+      "sentence_end": -0.1
+    },
+    "repeat_penalty": -0.05,
+    "short_word_bonus": 0.05
+  }
+}

@@ -1,0 +1,15 @@
+# 基础依赖（口癖检测核心）
+# Python >= 3.8
+
+# === VAD智能分段模块 (可选) ===
+torch>=2.0.0
+numpy>=1.21.0
+
+# === Qwen3 ASR + ForcedAligner (可选) ===
+transformers>=4.35.0
+librosa>=0.10.0
+
+# === 注意 ===
+# silero-vad 通过 torch.hub 自动下载，无需pip安装
+# Qwen3模型通过 transformers 自动下载
+# 上述依赖仅在使用 --vad 或 --asr qwen3 时需要

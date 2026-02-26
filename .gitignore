@@ -1,0 +1,37 @@
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Output directories
+--output/
+output/
+test-data/
+
+# Environment
+.env
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Models (downloaded at runtime)
+*.bin
+*.pt
+*.onnx
+
+# Audio files (too large for git)
+*.mp3
+*.wav
+*.m4a
+*.flac
