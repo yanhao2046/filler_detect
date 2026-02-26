@@ -34,4 +34,4 @@ python -c "from filler_detect import detect_fillers; detect_fillers('audio.json'
 
 - Qwen3 单次输入限制 5 分钟，通过 VAD 分段解决
 - 连接词（然后、就是等）检测需要句首约束，置信度较低
-- Stage 3 音频剪辑部分仅有流程描述，ffmpeg 实现需手动执行
+- 系统依赖 ffmpeg（音频剪辑阶段需要）

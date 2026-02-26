@@ -1,19 +1,18 @@
 """
-FillerDetect - 口癖识别 Skill
+FillerDetect - 口癖识别与粗剪 Skill
 
 功能：
 - 基于ASR转录结果识别口癖（填充词、口头禅）
 - 标记删除建议，保留原文
 - 输出带时间戳的干净文本
 - 支持一键批量删除建议
+- 自动剪辑音频，移除口癖片段
+- 生成总结报告
 
 用法：
-    from skills.filler_detect import detect_fillers
-    result = detect_fillers(
-        "transcript.json",
-        output_dir="./output",
-        confidence_threshold=0.7
-    )
+    from filler_detect import detect_fillers, cut_fillers
+    result = detect_fillers("transcript.json", output_dir="./output")
+    cut_result = cut_fillers("podcast.mp3", result["output_json"], "./output")
 """
 
 from pathlib import Path
@@ -26,6 +25,10 @@ from .filler_core import (
     generate_cut_statistics as _gen_stats,
     print_cut_statistics as _print_stats,
     FillerDetector
+)
+from .audio_cutter import (
+    cut_fillers as _cut_fillers,
+    generate_keep_segments as _gen_keep,
 )
 
 
@@ -152,9 +155,40 @@ def print_cut_statistics(report: Dict) -> None:
     _print_stats(report)
 
 
-# 向后兼容
+def cut_fillers(
+    audio_path: Union[str, Path],
+    fillers_json: Union[str, Path],
+    output_dir: Union[str, Path] = "./output",
+    output_filename: Optional[str] = None
+) -> Dict:
+    """
+    Stage 3: 从音频中移除口癖，生成干净音频 + 总结报告
+
+    Args:
+        audio_path: 原始音频文件路径
+        fillers_json: 口癖检测JSON路径（detect_fillers 输出的 output_json）
+        output_dir: 输出目录
+        output_filename: 自定义输出文件名（默认: {stem}_clean.mp3）
+
+    Returns:
+        {
+            "clean_audio": Path,
+            "summary_report": Path,
+            "keep_segments": int,
+            "fillers_removed": int,
+            "time_saved": float,
+            "original_duration": float,
+            "clean_duration": float
+        }
+    """
+    return _cut_fillers(
+        str(audio_path), str(fillers_json),
+        str(output_dir), output_filename
+    )
+
+
 __all__ = [
     "detect_fillers", "preview_fillers", "parse_reviewed_srt",
     "generate_cut_list", "generate_cut_statistics", "print_cut_statistics",
-    "FillerDetector"
+    "cut_fillers", "FillerDetector"
 ]

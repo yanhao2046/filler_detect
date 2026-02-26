@@ -48,11 +48,17 @@ result = detect_fillers('audio.json', './output', confidence_threshold=0.7)
 ```
 
 ### Stage 3: Audio Editing
-Generate keep-segment lists for ffmpeg-based audio cutting.
+Automatically remove filler segments and merge clean audio.
+
+```python
+from filler_detect import cut_fillers
+result = cut_fillers('podcast.mp3', 'podcast_fillers.json', './output')
+# -> {"clean_audio": Path, "summary_report": Path, "time_saved": 40.8, ...}
+```
 
 ```bash
-# Cut and merge clean audio
-ffmpeg -f concat -safe 0 -i concat_list.txt -c copy clean.mp3
+# Or via command line
+python -m filler_detect.audio_cutter podcast.mp3 podcast_fillers.json ./output
 ```
 
 ## Supported Filler Words
@@ -98,8 +104,9 @@ Their JSON output formats are compatible (same segments + words structure).
 
 ```
 filler_detect/
-├── filler_core.py      # Core detection engine
-├── qwen3_pipeline.py   # Qwen3-ASR + ForcedAligner pipeline
+├── filler_core.py      # Core detection engine (Stage 2)
+├── audio_cutter.py     # Audio cutting and merging (Stage 3)
+├── qwen3_pipeline.py   # Qwen3-ASR + ForcedAligner pipeline (Stage 1)
 ├── vad_segmenter.py    # VAD intelligent segmentation
 ├── filler_db.json      # Filler word database
 ├── __init__.py         # Public API
